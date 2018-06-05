@@ -7,21 +7,33 @@ export default class Tile extends Component {
     this.state = {
       color: this.props.color,
       visible: this.props.visible,
-      locked: this.props.locked,
-      result: []
     }
   }
-  unlockTile(){
+  unlockTile(e){
+    e.preventDefault();
     this.setState({
       visible: !this.state.visible,
-      locked: !!this.state.visible,
-      result: this.state.result.concat(this.state.color)
-    })
+    });
   }
+
+  // lockTile() {
+  //   if(this.state.locked) {
+  //     return false
+  //   }
+  // }
 
   render() {
     return (
-      <div className={this.state.visible ? this.state.color + ' tile' : 'tile'} onClick={(e) => this.unlockTile(e)}>{this.props.id}</div>
+      <div
+        className={this.state.visible ? this.state.color + ' tile' : 'tile'}
+        onClick={(e) => {
+          this.props.updateData(this.state.color)
+          this.unlockTile(e)
+          // this.lockTile()
+        }}
+      >
+        {this.props.id}
+      </div>
     )
   }
 }
