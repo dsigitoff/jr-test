@@ -5,3 +5,11 @@
     border: 1px solid black;
     cursor: pointer;
 }
+
+.green {
+    background-color: forestgreen;
+}
+
+.blue {
+    background-color: dodgerblue;
+}

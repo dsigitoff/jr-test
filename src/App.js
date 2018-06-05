@@ -4,6 +4,16 @@ import './App.css';
 import Tile from './components/Tile';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      tileState: {
+        color: null,
+        visible: false,
+        locked: false
+      }
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -12,12 +22,12 @@ class App extends Component {
           </header>
           <div className="tile--wrapper">
             <div>
-              <Tile id="1"/>
-              <Tile id="2"/>
+              <Tile tileState={this.state.tileState} id="1" color='green'/>
+              <Tile tileState={this.state.tileState} id="2" color='blue'/>
             </div>
             <div>
-              <Tile id="3"/>
-              <Tile id="4"/>
+              <Tile tileState={this.state.tileState} id="3" color='blue'/>
+              <Tile tileState={this.state.tileState} id="4" color='green'/>
             </div>
           </div>
       </div>
