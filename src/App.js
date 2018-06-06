@@ -8,19 +8,36 @@ class App extends Component {
     super(props);
     this.state = {
       tileState: {
-        color: null,
         visible: false,
-        id: [1, 2, 3, 4],
-        result: []
+        id: [1, 2, 3, 4, 5, 6, 7, 8],
+        result: [],
+        computed: []
       }
     }
   }
 
-  updateData = (value) => {
+  updateData = (value, id) => {
     this.setState({
-      result: this.state.tileState.result.push(value)
+      result: this.state.tileState.result.push(value),
+      computed: this.state.tileState.computed.push(id)
     })
   };
+
+  deleteTile = () => {
+    let result = this.state.tileState.result;
+    let id = this.state.tileState.id;
+    let computed = this.state.tileState.computed;
+
+    if(result.length === 2 && result[0] === result[1]) {
+      this.setState({
+        id: id.splice(computed[0], 1) && id.splice(computed[1], 1)
+      })
+    } else {
+      this.setState({
+        id
+      })
+    }
+  }
 
   render() {
     return (
@@ -34,8 +51,10 @@ class App extends Component {
               <Tile
                 tileState={this.state.tileState}
                 key={id}
-                color='green'
+                id={id}
+                color={id % 2 === 0 ? 'blue' : 'green'}
                 updateData={this.updateData}
+                deleteTile={this.deleteTile}
               />
             )
           })}

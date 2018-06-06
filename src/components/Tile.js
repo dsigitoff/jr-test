@@ -7,6 +7,8 @@ export default class Tile extends Component {
     this.state = {
       color: this.props.color,
       visible: this.props.visible,
+      result: this.props.result,
+      id: this.props.id
     };
   this.unlockTile = this.unlockTile.bind(this)
   }
@@ -17,18 +19,16 @@ export default class Tile extends Component {
         visible: !prevState.visible
       }
     });
-    this.props.updateData(this.state.color);
-    this.refs.btn.setAttribute("disabled", "disabled");
+    this.props.updateData(this.state.color, this.state.id);
 };
 
   render() {
     return (
       <button
-        ref="btn"
+        disabled={this.state.visible}
         onClick={this.unlockTile}
         className={this.state.visible ? this.state.color + ' tile' : 'tile'}
       >
-        {this.props.id}
       </button>
     )
   }
