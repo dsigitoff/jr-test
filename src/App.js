@@ -10,6 +10,7 @@ class App extends Component {
       tileState: {
         color: null,
         visible: false,
+        id: [1, 2, 3, 4],
         result: []
       }
     }
@@ -28,34 +29,16 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo"/>
         </header>
         <div className="tile--wrapper">
-          <div>
-            <Tile
-              tileState={this.state.tileState}
-              id="1"
-              color='green'
-              updateData={this.updateData}
-            />
-            <Tile
-              tileState={this.state.tileState}
-              id="2"
-              color='blue'
-              updateData={this.updateData}
-            />
-          </div>
-          <div>
-            <Tile
-              tileState={this.state.tileState}
-              id="3"
-              color='blue'
-              updateData={this.updateData}
-            />
-            <Tile
-              tileState={this.state.tileState}
-              id="4"
-              color='green'
-              updateData={this.updateData}
-            />
-          </div>
+          {this.state.tileState.id.map((id) => {
+            return (
+              <Tile
+                tileState={this.state.tileState}
+                key={id}
+                color='green'
+                updateData={this.updateData}
+              />
+            )
+          })}
         </div>
       </div>
     );

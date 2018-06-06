@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './Tile.css';
 
 export default class Tile extends Component {
@@ -7,33 +7,29 @@ export default class Tile extends Component {
     this.state = {
       color: this.props.color,
       visible: this.props.visible,
-    }
-  }
-  unlockTile(e){
-    e.preventDefault();
-    this.setState({
-      visible: !this.state.visible,
-    });
+    };
+  this.unlockTile = this.unlockTile.bind(this)
   }
 
-  // lockTile() {
-  //   if(this.state.locked) {
-  //     return false
-  //   }
-  // }
+  unlockTile = () => {
+    this.setState(prevState => {
+      return {
+        visible: !prevState.visible
+      }
+    });
+    this.props.updateData(this.state.color);
+    this.refs.btn.setAttribute("disabled", "disabled");
+};
 
   render() {
     return (
-      <div
+      <button
+        ref="btn"
+        onClick={this.unlockTile}
         className={this.state.visible ? this.state.color + ' tile' : 'tile'}
-        onClick={(e) => {
-          this.props.updateData(this.state.color)
-          this.unlockTile(e)
-          // this.lockTile()
-        }}
       >
         {this.props.id}
-      </div>
+      </button>
     )
   }
 }
