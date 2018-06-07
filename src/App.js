@@ -7,37 +7,35 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tileState: {
         visible: false,
         id: [1, 2, 3, 4, 5, 6, 7, 8],
         result: [],
         computed: []
       }
-    }
   }
 
   updateData = (value, id) => {
-    this.setState({
-      result: this.state.tileState.result.push(value),
-      computed: this.state.tileState.computed.push(id)
-    })
-  };
+    let result = this.state.result;
+    let index = this.state.id;
+    let computed = this.state.computed;
 
-  deleteTile = () => {
-    let result = this.state.tileState.result;
-    let id = this.state.tileState.id;
-    let computed = this.state.tileState.computed;
+    this.setState(prevState => {
+      return {
+        result: prevState.result.concat(value),
+        computed: prevState.computed.concat(id)
+      }
+    });
 
-    if(result.length === 2 && result[0] === result[1]) {
+    if(result.length > 1 && result[0] === result[1]) {
       this.setState({
-        id: id.splice(computed[0], 1) && id.splice(computed[1], 1)
-      })
-    } else {
-      this.setState({
-        id
+        id: index.filter(elem => elem !== computed[0] && elem !== computed[1]),
+        result: [],
+        computed: []
       })
     }
-  }
+
+  };
+
 
   render() {
     return (
@@ -46,15 +44,15 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo"/>
         </header>
         <div className="tile--wrapper">
-          {this.state.tileState.id.map((id) => {
+          {
+            this.state.id.map((id) => {
             return (
               <Tile
-                tileState={this.state.tileState}
+                visible={this.state.visible}
                 key={id}
                 id={id}
                 color={id % 2 === 0 ? 'blue' : 'green'}
                 updateData={this.updateData}
-                deleteTile={this.deleteTile}
               />
             )
           })}
