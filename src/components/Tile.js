@@ -6,10 +6,8 @@ export default class Tile extends Component {
     super(props);
     this.state = {
       color: this.props.color,
-      visible: this.props.visible,
       id: this.props.id
     };
-  this.unlockTile = this.unlockTile.bind(this)
   }
 
   unlockTile = () => {
@@ -19,7 +17,7 @@ export default class Tile extends Component {
       }
     });
     this.props.updateData(this.state.color, this.state.id);
-};
+  };
 
   render() {
     return (
@@ -28,7 +26,6 @@ export default class Tile extends Component {
         onClick={this.unlockTile}
         className={this.state.visible ? this.state.color + ' tile' : 'tile'}
       >
-        {this.state.id}
       </button>
     )
   }
